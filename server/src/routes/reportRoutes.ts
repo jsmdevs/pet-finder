@@ -14,7 +14,7 @@ router.post("/create", authMiddleware, async (req: Request, res: Response) => {
         const UserId = req._user?.id;
 
         if (UserId) {
-            const result = await ReportController.create(data, timestamp, UserId);
+            const result = await ReportController.create(timestamp, UserId, data);
             sendRes(res, result.message, result.success, result.status);
         };
 
@@ -30,7 +30,7 @@ router.post("/edit/:id", authMiddleware, async (req: Request, res: Response) => 
         const data = req.body;
 
         if (UserId) {
-            const result = await ReportController.edit(data, UserId, idReport);
+            const result = await ReportController.edit(UserId, idReport, data);
             sendRes(res, result.message, result.success, result.status);
 
         } else {

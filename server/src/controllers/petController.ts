@@ -10,7 +10,14 @@ class PetController {
         return ({ success: true, status: 200, message: "Registros obtenidos", data: allPets });
     }
 
-    public static async createPet(UserId: string, { name, location, imageUrl }: { name: string, location: string, imageUrl: string }) {
+    public static async createPet(
+        UserId: string, { name, location, imageUrl }:
+            {
+                name: string,
+                location: string,
+                imageUrl: string
+            }
+    ) {
         const newPet = await Pet.create({
             name,
             status: "lost",
@@ -55,28 +62,24 @@ class PetController {
             location: z.string().optional(),
             imageUrl: z.string().optional(),
         });
-
         const auth_UserId = parseInt(UserId);
-
         const pet = await Pet.findByPk(idPet);
 
         if (pet) {
-
             const pet_UserId = pet.get("UserId");
 
             if (pet_UserId === auth_UserId) {
-                const asd = await pet.update(UpdatePetSchema.parse({ idPet, name, location, imageUrl }));
-                if (location) {
+                await pet.update(UpdatePetSchema.parse({ idPet, name, location, imageUrl }));
 
+                if (location) {
                     let lat: number | undefined;
                     let lng: number | undefined;
-
                     const coords = location.split(',').map((c) => Number(c.trim()));
+
                     if (coords.length === 2 && !isNaN(coords[0]) && !isNaN(coords[1])) {
                         lat = coords[0];
                         lng = coords[1];
-                    }
-
+                    };
                     await client.partialUpdateObject({
                         indexName: 'pets',
                         objectID: idPet as string,
@@ -113,8 +116,12 @@ class PetController {
 
     public static async delete(id: string, UserId: string) {
         const pet = await Pet.findByPk(id);
+        const auth_UserId = parseInt(UserId);
+
         if (pet) {
-            if (pet.UserId === parseInt(UserId)) {
+            const pet_UserId = pet.get("UserId");
+
+            if (pet_UserId === auth_UserId) {
                 await pet.destroy();
                 await client.deleteObject({
                     indexName: "pets",

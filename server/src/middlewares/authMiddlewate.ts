@@ -8,13 +8,14 @@ export interface AuthenticatedRequest extends Request {
 
 export function authMiddleware(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     try {
-        const authHeader = req.headers.authorization;
+        const token = req.cookies?.token;
 
-        if (!authHeader) {
+        
+        
+        if (!token) {
             return res.status(401).json({ error: "Token de autorización no provisto" });
         }
 
-        const token = authHeader.split(" ")[1];
         const SECRET = process.env.SECRET_SIGNATURE;
 
         if (!SECRET) {
@@ -23,6 +24,7 @@ export function authMiddleware(req: AuthenticatedRequest, res: Response, next: N
 
         const data = jwt.verify(token, SECRET);
         req._user = data;
+        console.log(data)
 
         next();
     } catch (error) {

@@ -3,7 +3,6 @@ import { authMiddleware } from "../middlewares/authMiddlewate";
 import PetController from "../controllers/petController";
 import { sendRes } from "../utils/responseHelper";
 import { messages } from "../utils/messages";
-import { success } from "zod";
 
 const router = Router();
 
@@ -19,11 +18,9 @@ router.get("/", async (req: Request, res: Response) => {
 router.get("/nearby", authMiddleware, async (req: Request, res: Response) => {
     try {
         const data = req.params;
-
         const radius = Number(data.radius);
         const lat = Number(data.lat);
         const lng = Number(data.lng);
-
         const result = await PetController.nearby(radius, lat, lng);
         sendRes(res, result.message, result.success, result.status, result.data);
     } catch (error: any) {
@@ -50,7 +47,6 @@ router.post("/create", authMiddleware, async (req: Request, res: Response) => {
 });
 
 router.put("/edit/:id", authMiddleware, async (req: Request, res: Response) => {
-
     try {
         const idPet = req.params.id as string;
         const UserId = req._user?.id;
