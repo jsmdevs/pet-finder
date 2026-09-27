@@ -1,0 +1,89 @@
+.reportForm-wraped {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(5, 5, 5, 0.726);
+    position: fixed;
+    top: 60px;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    opacity: 0;
+    transition: .2s all;
+    pointer-events: none;
+}
+
+.reportForm {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: var(--color-primary);
+    width: 400px;
+    padding: 2rem;
+    margin: 1rem;
+    border-radius: var(--radius);
+    color: white;
+
+    .btn-close {
+        position: absolute;
+        background-color: transparent;
+        border: none;
+        color: white;
+        top: 0;
+        right: 0;
+        z-index: 9999;
+        padding: 0;
+        cursor: pointer;
+
+        svg {
+            width: 40px;
+            height: auto;
+        }
+    }
+
+    .form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        color: white;
+
+        fieldset {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+
+            .form__input-contaier {
+                display: flex;
+                flex-direction: column;
+                gap: .3rem;
+
+                .textarea {
+                    height: 175px;
+                    font-size: 13px;
+                }
+
+                .label {
+                    font-weight: 300;
+                }
+
+                .input {
+                    color: white;
+                    background-color: #4A5553;
+                    box-shadow: none;
+                }
+            }
+        }
+
+        .btn {
+            background-color: var(--color-positive);
+        }
+
+    }
+}
+
+
+.active {
+    opacity: 1;
+    pointer-events: all;
+}

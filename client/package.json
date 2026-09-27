@@ -9,11 +9,17 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "sass": "^1.105.0",
     "typescript": "~6.0.2",
     "vite": "^8.3.0"
   },
   "dependencies": {
-    "@lit-labs/router": "^0.1.4",
-    "lit": "^3.3.3"
+    "@capitec/omni-router": "^0.3.3",
+    "@types/node": "^26.6.2",
+    "bootstrap-icons": "^1.13.1",
+    "dotenv": "^18.0.4",
+    "hamburgers": "^1.2.1",
+    "mapbox-gl": "^3.31.0",
+    "reset-css": "^5.0.2"
   }
 }

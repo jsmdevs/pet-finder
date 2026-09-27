@@ -1,0 +1,15 @@
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.image-login {
+    width: 100%;
+}
+
+.register-text,
+.reset_password-text {
+    font-size: 14px;
+}

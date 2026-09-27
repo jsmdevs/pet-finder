@@ -6,6 +6,7 @@ import authRouter from './src/routes/authRoutes';
 import petRouter from './src/routes/petRoutes';
 import userRouter from './src/routes/userRoutes';
 import reportRouter from './src/routes/reportRoutes';
+import cors from "cors";
 
 async function main() {
     
@@ -13,6 +14,10 @@ async function main() {
 
     const app = express();
     app.use(express.json());
+    app.use(cors({
+        origin: "http://localhost:5173",
+        credentials: true
+    }));
     app.use(cookieParser());
     
     app.use('/auth', authRouter);

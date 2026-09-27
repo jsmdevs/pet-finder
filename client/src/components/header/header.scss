@@ -1,0 +1,107 @@
+.header {
+    display: flex;
+    background-color: var(--color-primary);
+    height: var(--header-height);
+    width: 100%;
+    top: 0;
+    justify-content: space-between;
+    border-end-start-radius: 1rem;
+    border-end-end-radius: 1rem;
+    position: fixed;
+    padding: 1rem;
+    z-index: 9999;
+
+    .img-logo {
+        height: 100%;
+        display: flex;
+        align-items: center;
+
+        img {
+            width: 50px;
+            height: auto;
+        }
+    }
+
+    .hamburger {
+        display: none;
+    }
+
+    .hamburger-inner,
+    .hamburger-inner::before,
+    .hamburger-inner::after {
+        background-color: white !important;
+    }
+
+    .icon {
+        display: flex;
+        cursor: pointer;
+
+        svg {
+            color: white;
+            width: 28px;
+            height: auto;
+        }
+    }
+
+    nav {
+        ul {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+
+            li {
+                .link-nav {
+                    color: white;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width:768px) {
+
+    .header {
+        .my-account-btn {
+            display: none;
+        }
+
+        .nav {
+            position: absolute;
+            height: 300px;
+            top: -300px;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            background-color: #26302E;
+            border-end-start-radius: 1rem;
+            border-end-end-radius: 1rem;
+            transition: .5s top;
+
+            ul {
+                flex-direction: column;
+                justify-content: center;
+
+                li {
+                    .link-nav {
+                        color: white;
+                        text-decoration: none;
+                    }
+                }
+            }
+
+
+
+        }
+
+        .hamburger {
+            display: initial;
+        }
+
+        .nav.active {
+            top: 0;
+        }
+
+    }
+}
