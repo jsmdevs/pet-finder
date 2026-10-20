@@ -38,7 +38,6 @@ export class ReportFormComponent extends HTMLElement {
         this.render();
         reportStore.addEventListener('report-state-changed', this.handleStateChange);
         const closeBtn = this.shadowRoot!.querySelector(".btn-close");
-        console.log(closeBtn)
         closeBtn?.addEventListener("click", () => {
             const asd = this.shadowRoot!.querySelector(".reportForm-wraped");
             asd?.classList.remove("active")

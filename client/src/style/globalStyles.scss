@@ -3,6 +3,7 @@
 :root {
     --color-bg: linear-gradient(#ffffff, #d9f3e5);    
     --color-primary: #26302E;
+    --color-secondary: #5A8FEC;
     --color-attention: #EB6372;
     --color-input: #4A5553;
     --color-positive: #00A884;
@@ -55,8 +56,6 @@ body, textarea {
     }
 }
 
-
-
 .input {
     box-sizing: border-box;
     width: 100%;
@@ -66,6 +65,10 @@ body, textarea {
     padding: 1rem;
     font-size: 16px;
     box-shadow: 0px 1px 4px 0px #00000040;
+}
+
+.input::placeholder{
+    color: #cccccc;
 }
 
 .link {
@@ -91,6 +94,12 @@ body, textarea {
 .form .form__fielset .form__input-contaier .form__input {
     margin-top: .5rem;
     width: 100%;
+}
+
+@keyframes l3 {
+    to {
+        transform: rotate(1turn);
+    }
 }
 
 .btn {
@@ -120,4 +129,105 @@ body, textarea {
     background-color: #d11a1a;
 }
 
-;
+.btn-status{
+    position: relative;
+    padding: 12px 12px;
+    font-size: 16px;
+    font-weight: 500;
+    background-color: var(--color-secondary);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    margin-block: 1rem;
+
+    .btn-text {
+        transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .loader-wrapper,
+    .icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.7);
+        opacity: 0;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+        pointer-events: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+    &.is-loading {
+        opacity: .7;
+
+        .btn-text {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .loader-wrapper {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+
+            .loader {
+                width: 20px;
+                padding: 3px;
+                aspect-ratio: 1;
+                border-radius: 50%;
+                background: currentColor;
+                --_m:
+                    conic-gradient(#0000 10%, #000),
+                    linear-gradient(#000 0 0) content-box;
+                -webkit-mask: var(--_m);
+                mask: var(--_m);
+                -webkit-mask-composite: source-out;
+                mask-composite: subtract;
+                animation: l3 1s infinite linear;
+            }
+        }
+
+    }
+
+    &.is-success {
+        background-color: #10b981;
+        /* Verde */
+
+        .btn-text {
+            opacity: 0;
+        }
+
+        .success-icon {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+    }
+
+    &.is-error {
+        background-color: #ef4444;
+        /* Rojo */
+
+        .btn-text {
+            opacity: 0;
+        }
+
+        .error-icon {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+    }
+
+    .icon {
+        font-size: 20px;
+        line-height: 1;
+        color: white;
+    }
+}
+
+.btn-status:disabled {
+    cursor: not-allowed;
+}

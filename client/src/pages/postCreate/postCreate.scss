@@ -6,6 +6,36 @@
 
 
 .form {
+    .upload-box {
+        width: 100%;
+        height: 200px;
+        border: 2px dashed #5A8FEC;
+        border-radius: var(--radius);
+        background-color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition: border-color 0.3s ease;
+    }
+
+    /* Ocultamos los elementos por defecto de Dropzone para personalizar la imagen */
+    .dz-preview {
+        display: none !important;
+    }
+
+    .preview-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
     .form__fielset {
         display: flex;
         flex-direction: column;
@@ -16,23 +46,163 @@
             border-radius: var(--radius);
         }
 
-        .map{
+        .map {
             display: flex;
             flex-direction: column;
             gap: 1rem;
-            .map__text{
+
+            .map__text {
                 text-align: center;
             }
 
-            .mapbox-view{
+            .mapbox-view {
                 width: 100%;
                 height: 225px;
                 border-radius: var(--radius);
             }
         }
+
     }
 }
-.btn_form-publish{
-    background-color: var(--color-positive) !important;
+
+
+.results-list {
+    list-style: none;
+    margin: 4px 0 0 0;
+    padding: 0;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    max-height: 250px;
+    overflow-y: auto;
+    display: none;
+}
+
+.results-list li {
+    padding: 10px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+.results-list li:hover {
+    background-color: #f0f0f0;
+}
+
+.btn-success {
+    background-color: green;
+}
+
+.btn-error {
+    background-color: red;
+}
+
+@keyframes l3 {
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+/* ESTADO BASE DEL BOTÓN */
+.status-btn {
+    position: relative;
+    padding: 12px 12px;
+    font-size: 16px;
+    font-weight: 500;
+    background-color: var(--color-secondary);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
     margin-block: 1rem;
+
+    .btn-text {
+        transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .loader-wrapper,
+    .icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.7);
+        opacity: 0;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+        pointer-events: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+    &.is-loading {
+        opacity: .7;
+
+        .btn-text {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .loader-wrapper {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+
+            .loader {
+                width: 20px;
+                padding: 3px;
+                aspect-ratio: 1;
+                border-radius: 50%;
+                background: currentColor;
+                --_m:
+                    conic-gradient(#0000 10%, #000),
+                    linear-gradient(#000 0 0) content-box;
+                -webkit-mask: var(--_m);
+                mask: var(--_m);
+                -webkit-mask-composite: source-out;
+                mask-composite: subtract;
+                animation: l3 1s infinite linear;
+            }
+        }
+
+    }
+
+    &.is-success {
+        background-color: #10b981;
+        /* Verde */
+
+        .btn-text {
+            opacity: 0;
+        }
+
+        .success-icon {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+    }
+
+    &.is-error {
+        background-color: #ef4444;
+        /* Rojo */
+
+        .btn-text {
+            opacity: 0;
+        }
+
+        .error-icon {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+    }
+
+    .icon {
+        font-size: 20px;
+        line-height: 1;
+        color: white;
+    }
+}
+
+.status-btn:disabled {
+    cursor: not-allowed;
 }

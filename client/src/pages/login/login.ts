@@ -1,6 +1,10 @@
 import { globalStyles } from "../../style/globalStyles";
 import imgLogin from "../../assets/images/undraw_login_re_4vu2 1.svg";
 import loginCss from "./login.scss?raw";
+import axios from "axios";
+import { API_URL } from "../../config";
+import checkIcon from 'bootstrap-icons/icons/check-lg.svg?raw';
+import xIcon from 'bootstrap-icons/icons/x-lg.svg?raw';
 
 const styles = new CSSStyleSheet();
 styles.replaceSync(loginCss);
@@ -14,6 +18,52 @@ export class LoginPage extends HTMLElement {
 
     connectedCallback() {
         this.render();
+        const form = this.shadowRoot!.getElementById("login") as HTMLFormElement;
+
+        form?.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            this.handleProcess();
+        });
+    };
+
+    private async singin() {
+        const emailInput = this.shadowRoot!.getElementById("Email") as HTMLInputElement;
+        const passwordInput = this.shadowRoot!.getElementById("Password") as HTMLInputElement;
+
+        const res = await axios.post(`${API_URL}/auth/login`, {
+            email: emailInput.value,
+            password: passwordInput.value
+        }, {
+            withCredentials: true
+        });
+
+        return res;
+    };
+
+    private async handleProcess() {
+        const btn = this.shadowRoot!.querySelector(".btn-status") as HTMLButtonElement;
+
+        if (!btn) return;
+
+        btn!.className = 'btn-status is-loading';
+        btn.disabled = true;
+
+        try {
+            await this.singin();
+            btn.className = `btn-status is-success`;
+            setTimeout(() => {
+                window.location.href = "/";
+            }, 2000);
+
+        } catch (error) {
+            btn.className = `btn-status is-error`;
+        };
+
+        setTimeout(() => {
+            btn!.className = 'btn-status';
+            btn.disabled = false;
+
+        }, 2000);
     };
 
     render() {
@@ -39,7 +89,16 @@ export class LoginPage extends HTMLElement {
             </form>
             <a href="#" class="link link-reset_password reset_password-text">Olvidé mi contraseña</a>
             <p class="register-text">¿Aún no tenés cuenta? <a href="/register" class="link link-register">Registrate</a></p>
-            <button type="submit" form="login" class="btn">INICIAR SESIÓN</button>
+             <button type="submit" form="login" class="btn-status" type="submit">
+                <span class="btn-text">INICIAR SESIÓN</span>
+
+                <div class="loader-wrapper">
+                    <div class="loader"></div>
+                </div>
+
+                <i class="icon success-icon">${checkIcon}</i>
+                <i class="icon error-icon">${xIcon}</i>
+            </button>
             </div>`;
 
     };

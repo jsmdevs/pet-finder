@@ -1,11 +1,13 @@
-const API_URL = "http://localhost:3000"; // ajustá según tu config
+import { API_URL } from "../config";
+import axios from "axios";
 
-export async function checkAuth(): Promise<boolean> {
+export async function checkAuth() {
     try {
-        const res = await fetch(`${API_URL}/user/me`, {
-            credentials: "include", // OBLIGATORIO para que mande la cookie
+        const res = await axios.get(`${API_URL}/user/me`, {
+            withCredentials: true,
         });
-        return res.ok; // 200 = sesión válida, 401 = no
+        return res.data.success; // 200 = sesión válida, 401 = no
+
     } catch {
         return false;
     }

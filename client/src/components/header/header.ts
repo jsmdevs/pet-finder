@@ -37,11 +37,11 @@ class Header extends HTMLElement {
         <nav class="nav">
             <ul>
                 <li><a class="link-nav" href="/">Inicio</a></li>
-                <li><a class="link-nav" href="#">Mis mascotas</a></li>
+                <li><a class="link-nav" href="/mis-mascotas">Mis mascotas</a></li>
                 <li><a class="link-nav" href="/nueva-publicacion">Publicar mascota</a></li>
             </ul>
         </nav>
-        <a class="my-account-btn icon" href="/login">${personIcon}</a>
+        <a class="my-account-btn icon" href="/mi-cuenta">${personIcon}</a>
         <button class="hamburger hamburger--collapse" type="button">
             <span class="hamburger-box">
                 <span class="hamburger-inner"></span>
